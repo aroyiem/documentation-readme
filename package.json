@@ -25,5 +25,10 @@
   "devDependencies": {
     "eslint": "^1.5.1",
     "tape": "^4.2.0"
+  },
+  "dependencies": {
+    "documentation": "^2.0.1",
+    "mdast": "^2.0.0",
+    "yargs": "^3.26.0"
   }
 }
