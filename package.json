@@ -1,0 +1,29 @@
+{
+  "name": "documentation-readme",
+  "version": "1.0.0",
+  "description": "inject documentation into your README.md",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --no-eslintrc -c .eslintrc .",
+    "test": "npm run lint && tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/documentationjs/documentation-readme.git"
+  },
+  "keywords": [
+    "documentation",
+    "jsdoc",
+    "readme"
+  ],
+  "author": "Anand Thakker <vestibule@anandthakker.net> (http://anandthakker.net/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/documentationjs/documentation-readme/issues"
+  },
+  "homepage": "https://github.com/documentationjs/documentation-readme#readme",
+  "devDependencies": {
+    "eslint": "^1.5.1",
+    "tape": "^4.2.0"
+  }
+}
