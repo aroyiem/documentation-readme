@@ -49,14 +49,6 @@ mdast.use(docjsReadme, {
 
 ## [Contributing](CONTRIBUTING.md)
 
-_We have plenty of
-[issues](https://github.com/documentationjs/documentation/issues) that we'd
-love help with._
-
--   Robust and complete `JSDoc` support, including typedefs.
--   Strong support for HTML and Markdown output
--   Documentation coverage, statistics, and validation
-
 documentation is an OPEN Open Source Project. This means that:
 
 Individuals making significant and valuable contributions are given
