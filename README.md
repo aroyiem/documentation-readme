@@ -1,5 +1,7 @@
 # documentation-readme
 
+[![Circle CI](https://circleci.com/gh/documentationjs/documentation-readme.svg?style=svg)](https://circleci.com/gh/documentationjs/documentation-readme) [![npm version](https://badge.fury.io/js/documentation-readme.svg)](http://badge.fury.io/js/documentation-readme)
+
 Inject [documentationjs](http://documentation.js.org/)-generated documentation into your README.md.
 
 ## Usage
