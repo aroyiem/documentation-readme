@@ -5,10 +5,7 @@ const mdast = require('mdast')
 const plugin = require('./lib/plugin')
 
 var yargs = require('yargs')
-  .usage('Usage: $0 documentation [options] [-- documentationjs options]')
-  .alias('o', 'output')
-  .default('o', 'README.md')
-  .describe('o', 'Markdown file into which to ouput generated documentation')
+  .usage('Usage: $0 documentation [file=README.md] [options] [-- documentationjs options]')
 
   .demand('s')
   .alias('s', 'section')
@@ -19,21 +16,29 @@ var yargs = require('yargs')
 
   .example('$0 -s "API Docs" -- index.js --github')
 
-var argv = yargs.argv
+var dashdash = process.argv.indexOf('--')
+if (dashdash < 0) {
+  dashdash = process.argv.length
+}
+var arglist = process.argv.slice(2, dashdash)
+var documentationArgs = process.argv.slice(dashdash)
+var argv = yargs.parse(arglist)
 
-if (argv._.filter(a => a === 'f' || a === 'format').length) {
+if (documentationArgs.filter(a => a === 'f' || a === 'format').length) {
   console.log('Setting documentationjs format is not allowed in documentation-readme.')
   process.exit(1)
 }
 
+var readmeFile = argv._.length ? argv._[0] : 'README.md'
+
 mdast.use(plugin, {
   section: argv.s,
-  documentationArgs: argv._
-}).process(fs.readFileSync(argv.o, 'utf-8'), function (err, file, content) {
+  documentationArgs: documentationArgs
+}).process(fs.readFileSync(readmeFile, 'utf-8'), function (err, file, content) {
   if (err) {
     throw err
   }
-  fs.writeFileSync(argv.o, content)
+  fs.writeFileSync(readmeFile, content)
 })
 
 
