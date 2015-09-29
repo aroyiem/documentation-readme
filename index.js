@@ -1,3 +1,5 @@
+require('babel/register')
+
 const fs = require('fs')
 const mdast = require('mdast')
 const plugin = require('./lib/plugin')
