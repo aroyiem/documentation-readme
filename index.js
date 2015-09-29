@@ -8,9 +8,12 @@ var yargs = require('yargs')
   .default('o', 'README.md')
   .describe('o', 'Markdown file into which to ouput generated documentation')
 
+  .demand('s')
   .alias('s', 'section')
-  .default('s', 'API')
   .describe('s', 'The section heading after which to inject generated documentation')
+
+  .help('h')
+  .alias('h', 'help')
 
   .example('$0 -s "API Docs" -- index.js --github')
 
