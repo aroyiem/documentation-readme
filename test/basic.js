@@ -1,14 +1,17 @@
-const fs = require('fs')
-const test = require('tape')
-const mdast = require('mdast')
-const plugin = require('../lib/plugin')
+var fs = require('fs')
+var test = require('tape')
+var mdast = require('mdast')
+var plugin = require('../lib/plugin')
 
 // Check any file in fixtures/ with something.blah.md, expecting output to equal
 // contents of something.expected.md
 var tests = fs.readdirSync(__dirname + '/fixture')
-  .filter(f => /md$/.test(f))
-  .filter(f => !/expected\.md/.test(f))
-  .forEach(f => test(f, testInputFile.bind(null, f)))
+  .filter(function (f) {
+    return /md$/.test(f) && !/expected\.md/.test(f);
+  })
+  .forEach(function (f) {
+    test(f, testInputFile.bind(null, f))
+  });
 
 function testInputFile(f, t) {
   var input = fixture(f)
