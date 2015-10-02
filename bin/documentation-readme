@@ -1,8 +1,8 @@
-require('babel/register')
+#!/usr/bin/env node
 
-const fs = require('fs')
-const mdast = require('mdast')
-const plugin = require('./lib/plugin')
+var fs = require('fs')
+var mdast = require('mdast')
+var plugin = require('../lib/plugin')
 
 var yargs = require('yargs')
   .usage('Usage: $0 documentation [file=README.md] [options] [-- documentationjs options]')
@@ -24,7 +24,9 @@ var arglist = process.argv.slice(2, dashdash)
 var documentationArgs = process.argv.slice(dashdash)
 var argv = yargs.parse(arglist)
 
-if (documentationArgs.filter(a => a === 'f' || a === 'format').length) {
+if (documentationArgs._.some(function (a) {
+  return a === 'f' || a === 'format';
+})) {
   console.log('Setting documentationjs format is not allowed in documentation-readme.')
   process.exit(1)
 }
@@ -40,5 +42,3 @@ mdast.use(plugin, {
   }
   fs.writeFileSync(readmeFile, content)
 })
-
-

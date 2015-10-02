@@ -2,9 +2,9 @@
   "name": "documentation-readme",
   "version": "1.0.0",
   "description": "inject documentation into your README.md",
-  "main": "index.js",
+  "main": "lib/plugin.js",
   "bin": {
-    "documentation-readme": "index.js"
+    "documentation-readme": "bin/documentation-readme"
   },
   "scripts": {
     "lint": "eslint --no-eslintrc -c .eslintrc .",
@@ -31,7 +31,6 @@
     "tape": "^4.2.0"
   },
   "dependencies": {
-    "babel": "^5.8.23",
     "documentation": "^2.0.1",
     "mdast": "^2.0.0",
     "yargs": "^3.26.0"
