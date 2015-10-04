@@ -1,5 +1,5 @@
 var fs = require('fs')
-var test = require('tape')
+var test = require('tap').test
 var mdast = require('mdast')
 var plugin = require('../lib/plugin')
 

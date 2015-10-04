@@ -8,7 +8,7 @@
   },
   "scripts": {
     "lint": "eslint --no-eslintrc -c .eslintrc .",
-    "test": "npm run lint && tape test/*.js",
+    "test": "npm run lint && tap --coverage test/*.js",
     "docs": "node index.js -s \"mdast plugin\" "
   },
   "repository": {
@@ -28,7 +28,7 @@
   "homepage": "https://github.com/documentationjs/documentation-readme#readme",
   "devDependencies": {
     "eslint": "^1.5.1",
-    "tape": "^4.2.0"
+    "tap": "^2.0.0"
   },
   "dependencies": {
     "documentation": "^2.0.1",
