@@ -31,7 +31,7 @@
     "tap": "^2.0.0"
   },
   "dependencies": {
-    "documentation": "^2.0.1",
+    "documentation": "github:documentationjs/documentation#arg-parsing",
     "mdast": "^2.0.0",
     "yargs": "^3.26.0"
   }
