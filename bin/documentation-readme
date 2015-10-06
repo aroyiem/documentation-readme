@@ -7,9 +7,9 @@ var plugin = require('../lib/plugin')
 var yargs = require('yargs')
   .usage('Usage: $0 documentation [file=README.md] [options] [-- documentationjs options]')
 
-  .demand('s')
   .alias('s', 'section')
   .describe('s', 'The section heading after which to inject generated documentation')
+  .demand('s')
 
   .help('h')
   .alias('h', 'help')
@@ -24,7 +24,7 @@ var arglist = process.argv.slice(2, dashdash)
 var documentationArgs = process.argv.slice(dashdash)
 var argv = yargs.parse(arglist)
 
-if (documentationArgs._.some(function (a) {
+if (documentationArgs.some(function (a) {
   return a === 'f' || a === 'format';
 })) {
   console.log('Setting documentationjs format is not allowed in documentation-readme.')
