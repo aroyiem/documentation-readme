@@ -70,6 +70,3 @@ test('requires -s option', function (t) {
     })
   })
 })
-
-function fixture(f, cb) {
-}

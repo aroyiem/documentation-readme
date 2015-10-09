@@ -33,7 +33,7 @@
     "tmp": "0.0.28"
   },
   "dependencies": {
-    "documentation": "documentationjs/documentation#6545f3e5bf2da38e76202610452992409a38d798",
+    "documentation": "documentationjs/documentation#cea83efc84cf8d89f073f262160582c09c32b78a",
     "mdast": "^2.0.0",
     "yargs": "^3.26.0"
   }
