@@ -5,7 +5,9 @@ var mdast = require('mdast')
 var plugin = require('../lib/plugin')
 
 var yargs = require('yargs')
-  .usage('Usage: $0 documentation [file=README.md] [options] [-- documentationjs options]')
+
+yargs = yargs
+  .usage('Usage: $0 documentation [file=README.md] --section "API" [--compare-only] [-- documentationjs options]')
 
   .alias('s', 'section')
   .describe('s', 'The section heading after which to inject generated documentation')
@@ -13,6 +15,12 @@ var yargs = require('yargs')
 
   .help('h')
   .alias('h', 'help')
+
+  .version(function () {
+    return require('../package').version;
+  })
+
+  .wrap(yargs.terminalWidth())
 
   .example('$0 -s "API Docs" -- index.js --github')
 
@@ -32,13 +40,16 @@ if (documentationArgs.some(function (a) {
 }
 
 var readmeFile = argv._.length ? argv._[0] : 'README.md'
+var readmeContent = fs.readFileSync(readmeFile, 'utf-8')
 
 mdast.use(plugin, {
   section: argv.s,
   documentationArgs: documentationArgs
-}).process(fs.readFileSync(readmeFile, 'utf-8'), function (err, file, content) {
+}).process(readmeContent, function (err, file, content) {
   if (err) {
     throw err
   }
+
   fs.writeFileSync(readmeFile, content)
 })
+
