@@ -28,10 +28,12 @@
   "homepage": "https://github.com/documentationjs/documentation-readme#readme",
   "devDependencies": {
     "eslint": "^1.5.1",
-    "tap": "^2.0.0"
+    "fs-extra": "^0.24.0",
+    "tap": "^2.0.0",
+    "tmp": "0.0.28"
   },
   "dependencies": {
-    "documentation": "^2.0.1",
+    "documentation": "documentationjs/documentation#cea83efc84cf8d89f073f262160582c09c32b78a",
     "mdast": "^2.0.0",
     "yargs": "^3.26.0"
   }

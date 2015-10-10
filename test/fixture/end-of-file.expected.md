@@ -4,12 +4,18 @@ Some text
 
 # API
 
-## `foo`
+## foo
 
 A function with documentation.
 
-### Parameters
 
--   `a` **``** {string} blah
+**Parameters**
 
-Returns `number` answer
+-   `a`  {string} blah
+
+
+
+Returns **number** answer
+
+
+
