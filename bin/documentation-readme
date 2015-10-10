@@ -3,6 +3,7 @@
 var fs = require('fs')
 var mdast = require('mdast')
 var plugin = require('../lib/plugin')
+var diff = require('../lib/diff')
 
 var yargs = require('yargs')
 
@@ -12,6 +13,15 @@ yargs = yargs
   .alias('s', 'section')
   .describe('s', 'The section heading after which to inject generated documentation')
   .demand('s')
+
+  .alias('c', 'compare-only')
+  .describe('c', 'Instead of updating the given README with the generated documentation,' +
+    ' just check if its contents match, exiting nonzero if not.')
+  .default('c', false)
+
+  .alias('q', 'quiet')
+  .describe('q', 'Quiet mode: do not print messages or README diff to stdout.')
+  .default('q', false)
 
   .help('h')
   .alias('h', 'help')
@@ -35,9 +45,11 @@ var argv = yargs.parse(arglist)
 if (documentationArgs.some(function (a) {
   return a === 'f' || a === 'format';
 })) {
-  console.log('Setting documentationjs format is not allowed in documentation-readme.')
+  console.error('Setting documentationjs format is not allowed in documentation-readme.')
   process.exit(1)
 }
+
+var log = argv.q ? function () {} : console.log.bind(console, '[documentation-readme] ')
 
 var readmeFile = argv._.length ? argv._[0] : 'README.md'
 var readmeContent = fs.readFileSync(readmeFile, 'utf-8')
@@ -48,6 +60,19 @@ mdast.use(plugin, {
 }).process(readmeContent, function (err, file, content) {
   if (err) {
     throw err
+  }
+
+  var diffOutput = diff(readmeContent, content)
+  if (diffOutput) {
+    log(readmeFile + ' needs the following updates:')
+    log(diffOutput)
+  } else {
+    log(readmeFile + ' is up to date.')
+    process.exit(0)
+  }
+
+  if (argv.c) {
+    process.exit(1)
   }
 
   fs.writeFileSync(readmeFile, content)
