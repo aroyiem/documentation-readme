@@ -70,3 +70,36 @@ test('requires -s option', function (t) {
     })
   })
 })
+
+test('--compare exits nonzero when changes are needed', function (t) {
+  var expectedFile = path.join(fixtures, 'middle.expected.md')
+  var expected = fs.readFileSync(expectedFile, 'utf-8')
+  tmp.dir({unsafeCleanup: true}, function (err, d) {
+    t.error(err)
+    var readmeFile = path.join(d, 'README.md')
+    fs.copy(path.join(fixtures, 'middle.update.md'), readmeFile, function (err) {
+      t.error(err)
+      execFile(bin, ['-s', 'API', '-c', '--', sourceFile], {cwd: d}, function (err, stdout, stderr) {
+        t.ok(err)
+        t.notEqual(err.code, 0)
+        t.end()
+      })
+    })
+  })
+})
+
+test('--compare exits zero when changes are NOT needed', function (t) {
+  var expectedFile = path.join(fixtures, 'middle.expected.md')
+  var expected = fs.readFileSync(expectedFile, 'utf-8')
+  tmp.dir({unsafeCleanup: true}, function (err, d) {
+    t.error(err)
+    var readmeFile = path.join(d, 'README.md')
+    fs.copy(path.join(fixtures, 'middle.expected.md'), readmeFile, function (err) {
+      t.error(err)
+      execFile(bin, ['-s', 'API', '-c', '--', sourceFile], {cwd: d}, function (err, stdout, stderr) {
+        t.error(err)
+        t.end()
+      })
+    })
+  })
+})

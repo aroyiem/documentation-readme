@@ -11,7 +11,26 @@ Inject [documentationjs](http://documentation.js.org/)-generated documentation i
 ```sh
 npm install -g documentation-readme
 cd /your/project
-documentation-readme -o README.md -s "API Usage" -- [documentationjs opts]
+documentation-readme README.md -s "API Usage" -- [documentationjs opts]
+```
+
+This will look for a section in README.md with a heading like `## API Usage`.
+(The heading can be any level.)  The content under that heading will be replaced
+with output of documentationjs using any arguments you specified:
+`documentation -f md [documentationjs opts]`.
+
+Other options:
+
+```
+Usage: bin/documentation-readme documentation [file=README.md] --section "API" [--compare-only] [--] [documentationjs options]
+
+Options:
+  -s, --section       The section heading after which to inject generated documentation   [required]
+  -c, --compare-only  Instead of updating the given README with the generated documentation, just
+                      check if its contents match, exiting nonzero if not.          [default: false]
+  -q, --quiet         Quiet mode: do not print messages or README diff to stdout.   [default: false]
+  -h, --help          Show help                                                            [boolean]
+  --version           Show version number                                                  [boolean]
 ```
 
 ### npm script
@@ -30,14 +49,23 @@ And then add to your `package.json`:
 
 ### mdast plugin
 
-#### `plugin`
+#### plugin
 
 An mdast plugin to inject the output of documentationjs at a certain
 heading in a markdown file.
 
-##### Examples
 
-```js
+**Parameters**
+
+-   `mdast`  
+
+-   `opts`  
+
+
+
+**Examples**
+
+```javascript
 var docjsReadme = require('documentation-readme/lib/plugin')
 mdast.use(docjsReadme, {
  section: 'usage', // inject into the ## Usage section of the input doc
@@ -46,6 +74,9 @@ mdast.use(docjsReadme, {
  console.log(content)
 })
 ```
+
+
+
 
 ## [Contributing](CONTRIBUTING.md)
 
