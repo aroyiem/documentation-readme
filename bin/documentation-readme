@@ -2,10 +2,13 @@
 
 var fs = require('fs')
 var mdast = require('mdast')
-var plugin = require('../lib/plugin')
-var diff = require('../lib/diff')
-
+var disparity = require('disparity')
+var chalk = require('chalk')
 var yargs = require('yargs')
+
+disparity.removed = disparity.added = ''
+
+var plugin = require('../lib/plugin')
 
 yargs = yargs
   .usage('Usage: $0 documentation [file=README.md] --section "API" [--compare-only] [-- documentationjs options]')
@@ -49,7 +52,8 @@ if (documentationArgs.some(function (a) {
   process.exit(1)
 }
 
-var log = argv.q ? function () {} : console.log.bind(console, '[documentation-readme] ')
+var log = argv.q ? function () {}
+  : console.log.bind(console, '[documentation-readme] ')
 
 var readmeFile = argv._.length ? argv._[0] : 'README.md'
 var readmeContent = fs.readFileSync(readmeFile, 'utf-8')
@@ -62,17 +66,19 @@ mdast.use(plugin, {
     throw err
   }
 
-  var diffOutput = diff(readmeContent, content)
-  if (diffOutput) {
-    log(readmeFile + ' needs the following updates:')
-    log(diffOutput)
-  } else {
+  var diffOutput = disparity.unified(readmeContent, content, {
+    paths: [readmeFile, readmeFile]
+  })
+  if (!diffOutput.length) {
     log(readmeFile + ' is up to date.')
     process.exit(0)
   }
 
   if (argv.c) {
+    log(chalk.bold(readmeFile + ' needs the following updates:'), '\n' + diffOutput)
     process.exit(1)
+  } else {
+    log(chalk.bold('Updating ' + readmeFile), '\n' + diffOutput)
   }
 
   fs.writeFileSync(readmeFile, content)

@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "chalk": "^1.1.1",
-    "diff": "^2.1.3",
+    "disparity": "^2.0.0",
     "documentation": "documentationjs/documentation#cea83efc84cf8d89f073f262160582c09c32b78a",
     "mdast": "^2.0.0",
     "yargs": "^3.26.0"
