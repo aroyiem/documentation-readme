@@ -54,6 +54,28 @@ test('defaults to README.md', function (t) {
   })
 })
 
+test('forwards arguments to main documentation module', function (t) {
+  var expectedFile = path.join(fixtures, 'config.expected.md')
+  var expected = fs.readFileSync(expectedFile, 'utf-8')
+  tmp.file({postfix: '.md'}, function (err, readmeFile) {
+    t.error(err)
+    fs.copy(path.join(fixtures, 'middle.update.md'), readmeFile, function (err) {
+      t.error(err)
+      execFile(bin, [
+        readmeFile, '-s', 'API',
+        '--',
+        sourceFile, '-c',
+        path.join(fixtures, 'config.json')
+      ], function (err) {
+        t.error(err)
+        var content = fs.readFileSync(readmeFile, 'utf-8')
+        t.equal(content, expected)
+        t.end()
+      })
+    })
+  })
+})
+
 test('requires -s option', function (t) {
   var expectedFile = path.join(fixtures, 'middle.expected.md')
   var expected = fs.readFileSync(expectedFile, 'utf-8')

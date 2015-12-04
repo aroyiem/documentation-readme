@@ -42,11 +42,11 @@ if (dashdash < 0) {
   dashdash = process.argv.length
 }
 var arglist = process.argv.slice(2, dashdash)
-var documentationArgs = process.argv.slice(dashdash)
+var documentationArgs = process.argv.slice(dashdash + 1)
 var argv = yargs.parse(arglist)
 
 if (documentationArgs.some(function (a) {
-  return a === 'f' || a === 'format';
+  return a === '-f' || a === '--format';
 })) {
   console.error('Setting documentationjs format is not allowed in documentation-readme.')
   process.exit(1)
