@@ -2,6 +2,18 @@
 
 # API
 
+## bar
+
+A second function with docs
+
+
+**Parameters**
+
+-   `b`  
+
+
+
+
 ## foo
 
 A function with documentation.

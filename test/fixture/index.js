@@ -7,3 +7,10 @@
 function foo(a) {
 
 }
+
+/**
+ * A second function with docs
+ */
+function bar(b) {
+
+}
